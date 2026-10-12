@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg,#74ebd5,#9face6);
+               min-height: 100vh; display: flex; justify-content: center; align-items: center; margin: 0; }
+        .card { background: #fff; padding: 30px 40px; border-radius: 16px; width: 340px;
+                box-shadow: 0 8px 24px rgba(0,0,0,.2); text-align: center; }
+        input { padding: 10px; width: 62%; border: 1px solid #ccc; border-radius: 8px; }
+        button { padding: 10px 14px; border: none; background: #4a6cf7; color: #fff; border-radius: 8px; cursor: pointer; }
+        .temp { font-size: 48px; font-weight: bold; margin: 0; }
+        .desc { text-transform: capitalize; color: #555; }
+        .row { display: flex; justify-content: space-between; margin-top: 8px; color: #333; }
+        .error { color: #c0392b; margin-top: 16px; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>Weather App</h2>
+    <form method="get" action="/">
+        <input type="text" name="city" th:value="${query}" placeholder="Enter city" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+    <div th:if="${city}">
+        <h3 th:text="${city + ', ' + country}"></h3>
+        <img th:src="'https://openweathermap.org/img/wn/' + ${icon} + '@2x.png'" alt="icon">
+        <p class="temp" th:text="${temp} + ' °C'"></p>
+        <p class="desc" th:text="${description}"></p>
+        <div class="row"><span>Feels like</span><span th:text="${feelsLike} + ' °C'"></span></div>
+        <div class="row"><span>Humidity</span><span th:text="${humidity} + ' %'"></span></div>
+        <div class="row"><span>Pressure</span><span th:text="${pressure} + ' hPa'"></span></div>
+        <div class="row"><span>Wind</span><span th:text="${windSpeed} + ' m/s'"></span></div>
+    </div>
+</div>
+</body>
+</html>
